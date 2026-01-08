@@ -36,12 +36,12 @@ const navLinks = [
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-transparent backdrop-blur-sm">
+    <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-16 items-center">
         <div className="mr-6 hidden md:flex">
           <Link href="/" className="flex items-center space-x-2">
             <BookOpen className="h-6 w-6 text-primary" />
-            <span className="hidden font-bold sm:inline-block font-headline text-white">
+            <span className="hidden font-bold sm:inline-block font-headline text-foreground">
               E-Library
             </span>
           </Link>
@@ -49,7 +49,7 @@ export function SiteHeader() {
 
         <nav className="hidden md:flex items-center space-x-1 text-sm font-medium">
           {navLinks.map(link => (
-            <Button key={link.href} variant="ghost" asChild className="text-gray-300 hover:bg-white/10 hover:text-white">
+            <Button key={link.href} variant="ghost" asChild className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
               <Link
                 href={link.href}
               >
@@ -62,19 +62,19 @@ export function SiteHeader() {
         
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden text-white">
+            <Button variant="ghost" size="icon" className="md:hidden">
               <PanelLeft className="h-6 w-6" />
               <span className="sr-only">Toggle Menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="bg-background border-r-white/10">
+          <SheetContent side="left">
              <Link href="/" className="flex items-center space-x-2 mb-6">
                 <BookOpen className="h-6 w-6 text-primary" />
-                <span className="font-bold font-headline text-white">E-Library</span>
+                <span className="font-bold font-headline">E-Library</span>
               </Link>
               <div className="flex flex-col space-y-2">
               {navLinks.map(link => (
-                 <Button key={link.href} variant="ghost" asChild className="text-gray-300 hover:bg-white/10 hover:text-white justify-start">
+                 <Button key={link.href} variant="ghost" asChild className="text-muted-foreground hover:bg-accent hover:text-accent-foreground justify-start">
                     <Link
                       href={link.href}
                       className="text-lg"
@@ -91,14 +91,14 @@ export function SiteHeader() {
         <div className="flex flex-1 items-center justify-end space-x-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white">
+              <Button variant="ghost" size="icon">
                 <User className="h-5 w-5" />
                 <span className="sr-only">User Menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="bg-background border-white/10 text-white">
+            <DropdownMenuContent align="end">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator className="bg-white/10"/>
+              <DropdownMenuSeparator />
               <DropdownMenuItem asChild>
                 <Link href="/login">
                   <LogIn className="mr-2 h-4 w-4" />

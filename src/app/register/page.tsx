@@ -14,7 +14,7 @@ import { Label } from "@/components/ui/label";
 
 export default function RegisterPage() {
   return (
-    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-12">
+    <div className="flex items-center justify-center min-h-[calc(100vh-4rem)] py-12 bg-gray-50">
       <Card className="mx-auto max-w-sm">
         <CardHeader>
           <CardTitle className="text-xl font-headline">Sign Up</CardTitle>
