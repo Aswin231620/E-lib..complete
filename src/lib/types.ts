@@ -16,6 +16,10 @@ export interface Book {
   coverImage: string;
   imageHint: string;
   fileUrl: string; // Dummy URL for download/read
+  pages: number;
+  downloads: number;
+  fileSize: string;
+  isFeatured: boolean;
 }
 
 export interface User {

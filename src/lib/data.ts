@@ -23,6 +23,24 @@ export const categories: Category[] = [
 
 export const books: Book[] = [
   {
+    id: 'pride-and-prejudice',
+    title: 'Pride and Prejudice',
+    author: 'Jane Austen',
+    publicationYear: 1813,
+    category: categories[4],
+    subject: 'Romance',
+    language: 'English',
+    academicLevel: 'High School',
+    description: 'A timeless classic exploring themes of love, class, and personal growth in 19th century England.',
+    coverImage: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxtaWxrJTIwYW5kJTIwaG9uZXl8ZW58MHx8fHwxNzY4MTEzMjY5fDA&ixlib=rb-4.0.3&q=80&w=1080',
+    imageHint: 'milk honey',
+    fileUrl: '/path/to/pride.pdf',
+    pages: 432,
+    downloads: 313,
+    fileSize: '12.5 MB',
+    isFeatured: true,
+  },
+  {
     id: '3',
     title: 'Introduction to Algorithms',
     author: 'Thomas H. Cormen',
@@ -35,6 +53,10 @@ export const books: Book[] = [
     coverImage: getImageUrl('book-cover-3'),
     imageHint: getImageHint('book-cover-3'),
     fileUrl: '/path/to/sicp.pdf',
+    pages: 1312,
+    downloads: 1204,
+    fileSize: '30.2 MB',
+    isFeatured: false,
   },
   {
     id: '7',
@@ -49,6 +71,10 @@ export const books: Book[] = [
     coverImage: getImageUrl('book-cover-7'),
     imageHint: getImageHint('book-cover-7'),
     fileUrl: '/path/to/aima.pdf',
+    pages: 464,
+    downloads: 987,
+    fileSize: '5.8 MB',
+    isFeatured: true,
   },
   {
     id: '1',
@@ -63,6 +89,10 @@ export const books: Book[] = [
     coverImage: getImageUrl('book-cover-1'),
     imageHint: getImageHint('book-cover-1'),
     fileUrl: '/path/to/dune.pdf',
+    pages: 412,
+    downloads: 543,
+    fileSize: '2.3 MB',
+    isFeatured: false,
   },
   {
     id: '2',
@@ -77,6 +107,10 @@ export const books: Book[] = [
     coverImage: getImageUrl('book-cover-2'),
     imageHint: getImageHint('book-cover-2'),
     fileUrl: '/path/to/peoples_history.pdf',
+    pages: 729,
+    downloads: 876,
+    fileSize: '4.1 MB',
+    isFeatured: false,
   },
   {
     id: '4',
@@ -91,6 +125,10 @@ export const books: Book[] = [
     coverImage: getImageUrl('book-cover-4'),
     imageHint: getImageHint('book-cover-4'),
     fileUrl: '/path/to/earthsea.pdf',
+    pages: 205,
+    downloads: 450,
+    fileSize: '1.5 MB',
+    isFeatured: true,
   },
   {
     id: '5',
@@ -105,6 +143,10 @@ export const books: Book[] = [
     coverImage: getImageUrl('book-cover-5'),
     imageHint: getImageHint('book-cover-5'),
     fileUrl: '/path/to/critique.pdf',
+    pages: 550,
+    downloads: 120,
+    fileSize: '3.9 MB',
+    isFeatured: false,
   },
   {
     id: '6',
@@ -119,6 +161,10 @@ export const books: Book[] = [
     coverImage: getImageUrl('book-cover-6'),
     imageHint: getImageHint('book-cover-6'),
     fileUrl: '/path/to/solitude.pdf',
+    pages: 417,
+    downloads: 788,
+    fileSize: '2.1 MB',
+    isFeatured: true,
   },
   {
     id: '8',
@@ -133,6 +179,10 @@ export const books: Book[] = [
     coverImage: getImageUrl('book-cover-8'),
     imageHint: getImageHint('book-cover-8'),
     fileUrl: '/path/to/power_broker.pdf',
+    pages: 1336,
+    downloads: 650,
+    fileSize: '15.2 MB',
+    isFeatured: false,
   }
 ];
 
