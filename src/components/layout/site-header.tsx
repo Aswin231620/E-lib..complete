@@ -5,6 +5,7 @@ import {
   BookOpen,
   User,
   LogIn,
+  LogOut,
   UserPlus,
   PanelLeft,
   LayoutGrid,
@@ -26,6 +27,8 @@ import {
   SheetContent,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { useAuth, useUser } from "@/firebase";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const navLinks = [
   { href: "/", label: "Browse", icon: Search },
@@ -33,6 +36,65 @@ const navLinks = [
   { href: "/downloads", label: "My Downloads", icon: Download },
   { href: "/admin", label: "Admin Panel", icon: Settings },
 ];
+
+function UserMenu() {
+  const { user, isUserLoading } = useUser();
+  const auth = useAuth();
+
+  if (isUserLoading) {
+    return null;
+  }
+
+  if (user) {
+    return (
+      <DropdownMenu>
+        <DropdownMenuTrigger asChild>
+          <Button variant="ghost" className="relative h-8 w-8 rounded-full">
+            <Avatar className="h-8 w-8">
+              <AvatarImage src={user.photoURL || ""} alt={user.displayName || ""} />
+              <AvatarFallback>{user.displayName?.[0] || user.email?.[0]}</AvatarFallback>
+            </Avatar>
+          </Button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent align="end">
+          <DropdownMenuLabel>My Account</DropdownMenuLabel>
+          <DropdownMenuSeparator />
+          <DropdownMenuItem onClick={() => auth.signOut()}>
+            <LogOut className="mr-2 h-4 w-4" />
+            <span>Log out</span>
+          </DropdownMenuItem>
+        </DropdownMenuContent>
+      </DropdownMenu>
+    );
+  }
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button variant="ghost" size="icon">
+          <User className="h-5 w-5" />
+          <span className="sr-only">User Menu</span>
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        <DropdownMenuLabel>My Account</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/login">
+            <LogIn className="mr-2 h-4 w-4" />
+            <span>Login</span>
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem asChild>
+          <Link href="/register">
+            <UserPlus className="mr-2 h-4 w-4" />
+            <span>Register</span>
+          </Link>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
+  )
+}
 
 export function SiteHeader() {
   return (
@@ -89,30 +151,7 @@ export function SiteHeader() {
         </Sheet>
         
         <div className="flex flex-1 items-center justify-end space-x-4">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
-                <User className="h-5 w-5" />
-                <span className="sr-only">User Menu</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem asChild>
-                <Link href="/login">
-                  <LogIn className="mr-2 h-4 w-4" />
-                  <span>Login</span>
-                </Link>
-              </DropdownMenuItem>
-              <DropdownMenuItem asChild>
-                <Link href="/register">
-                  <UserPlus className="mr-2 h-4 w-4" />
-                  <span>Register</span>
-                </Link>
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+         <UserMenu />
         </div>
       </div>
     </header>
