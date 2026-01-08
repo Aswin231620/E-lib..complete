@@ -1,0 +1,124 @@
+/**
+ * # Firestore Security Rules: OpenShelf E-Library
+ *
+ * ## Core Philosophy
+ * This ruleset enforces a security model tailored for the "OpenShelf" e-library application.
+ * The primary goals are to protect user privacy while allowing authenticated users to browse the public book catalog.
+ * User data is strictly private, while catalog data (books and categories) is read-only for all signed-in users.
+ * Writes to the catalog are currently disabled, awaiting the implementation of an administrative role system.
+ *
+ * ## Data Structure
+ * - `/users/{userId}`: Contains private user profile data. Each user can only access their own document.
+ * - `/categories/{categoryId}`: A top-level collection for book categories, readable by any authenticated user.
+ * - `/books/{bookId}`: A top-level collection of books, readable by any authenticated user.
+ *
+ * ## Key Security Decisions
+ * - **User Data Privacy**: Users can only create, read, update, and delete their own profile document located at `/users/{userId}`. Listing users is explicitly disallowed to prevent user enumeration.
+ * - **Authenticated Catalog Read**: Any signed-in user can read the list of books and categories. This allows for browsing and searching the library catalog.
+ * - **Restricted Catalog Writes**: There is currently no concept of an "admin" or "uploader" role defined in the data model. To prevent any authenticated user from adding, modifying, or deleting books and categories, all write operations on the `/books` and `/categories` collections are disabled. This is a secure-by-default posture.
+ *
+ * ## Denormalization for Authorization
+ * The current model is simple and does not require complex denormalization. User profile documents under `/users/{userId}` must contain an `id` field that matches the document's `userId` to ensure path and data integrity. Future enhancements, like allowing users to upload books, would require denormalizing an `uploaderId` field onto each `book` document to enable ownership-based write rules.
+ *
+ * ## Structural Segregation
+ * User-private data (`/users`) is structurally segregated from public-read data (`/books`, `/categories`), which provides a clean, secure, and performant model for managing access.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // =====================================================================
+    // Helper Functions
+    // =====================================================================
+
+    /**
+     * Returns true if the user is authenticated.
+     */
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    /**
+     * Returns true if the authenticated user's UID matches the provided userId.
+     */
+    function isOwner(userId) {
+      return request.auth.uid == userId;
+    }
+
+    /**
+     * Returns true if the user is the owner AND the document already exists.
+     * Crucial for secure update and delete operations.
+     */
+    function isExistingOwner(userId) {
+      return isOwner(userId) && resource != null;
+    }
+
+    /**
+     * Validates that a user is creating their own profile and that the
+     * internal 'id' field matches the document's path {userId}.
+     * This enforces relational integrity from the start.
+     */
+    function isCreatingOwnValidProfile(userId) {
+      return isOwner(userId) && request.resource.data.id == userId;
+    }
+
+    /**
+     * Validates that the user is updating their own profile and that the
+     * internal 'id' field remains unchanged.
+     */
+    function isUpdatingOwnValidProfile(userId) {
+      return isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+    }
+
+    // =====================================================================
+    // Collection Rules
+    // =====================================================================
+
+    /**
+     * @description Manages user profile documents.
+     * @path /users/{userId}
+     * @allow (create) An authenticated user creating their own profile document.
+     * @deny (get) A user trying to read another user's profile.
+     * @principle Restricts access to a user's own data tree and enforces relational integrity.
+     */
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false; // Disallow user enumeration for security.
+      allow create: if isCreatingOwnValidProfile(userId);
+      allow update: if isUpdatingOwnValidProfile(userId);
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Manages the collection of book categories.
+     * @path /categories/{categoryId}
+     * @allow (get, list) Any authenticated user can read categories to browse the library.
+     * @deny (create, update, delete) Any user trying to modify the category list.
+     * @principle Provides public read access for authenticated users but locks down writes until an admin role is implemented.
+     */
+    match /categories/{categoryId} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+      allow create: if false; // Disabled until an admin role is defined.
+      allow update: if false; // Disabled until an admin role is defined.
+      allow delete: if false; // Disabled until an admin role is defined.
+    }
+
+    /**
+     * @description Manages the collection of books in the library.
+     * @path /books/{bookId}
+     * @allow (get, list) Any authenticated user can read book details to browse the library.
+     * @deny (create, update, delete) Any user trying to add or remove books from the catalog.
+     * @principle Provides public read access for authenticated users but locks down writes until ownership or admin roles are implemented.
+     */
+    match /books/{bookId} {
+      allow get: if isSignedIn();
+      allow list: if isSignedIn();
+
+      // CRITICAL: Cannot implement owner-only writes. The 'Book' entity is missing an 'ownerId' or 'uploaderId' field.
+      allow create: if false; // TODO: Add owner validation once the schema is updated with an ownership field (e.g., request.resource.data.uploaderId == request.auth.uid).
+      allow update: if false; // TODO: Add owner validation once the schema is updated (e.g., isOwner(resource.data.uploaderId)).
+      allow delete: if false; // TODO: Add owner validation once the schema is updated (e.g., isOwner(resource.data.uploaderId)).
+    }
+  }
+}
