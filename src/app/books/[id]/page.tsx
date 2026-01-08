@@ -141,10 +141,12 @@ export default function BookDetailPage({ params }: { params: { id: string } }) {
             </div>
             
              <div className="mt-8 flex flex-col space-y-3">
-              <Button size="lg" className="w-full text-lg py-6">
-                <Download className="mr-3 h-5 w-5" />
-                Download Book
-              </Button>
+                <Button size="lg" className="w-full text-lg py-6" asChild>
+                  <Link href={book.fileUrl} download>
+                    <Download className="mr-3 h-5 w-5" />
+                    Download Book
+                  </Link>
+                </Button>
             </div>
           </div>
         </div>
