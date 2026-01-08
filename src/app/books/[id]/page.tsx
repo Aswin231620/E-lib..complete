@@ -142,10 +142,10 @@ export default function BookDetailPage({ params }: { params: { id: string } }) {
             
              <div className="mt-8 flex flex-col space-y-3">
                 <Button size="lg" className="w-full text-lg py-6" asChild>
-                  <Link href={book.fileUrl} download>
+                  <a href={book.fileUrl} download={`${book.title.replace(/\s/g, '_')}.pdf`}>
                     <Download className="mr-3 h-5 w-5" />
                     Download Book
-                  </Link>
+                  </a>
                 </Button>
             </div>
           </div>

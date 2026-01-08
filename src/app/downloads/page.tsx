@@ -47,10 +47,10 @@ export default function MyDownloadsPage() {
                 </CardHeader>
                 <CardContent className="p-4 md:p-6 flex flex-col sm:flex-row gap-3 items-center">
                     <Button asChild className="w-full sm:w-auto">
-                        <Link href={book.fileUrl} download>
+                        <a href={book.fileUrl} download={`${book.title.replace(/\s/g, '_')}.pdf`}>
                             <BookOpen className="mr-2 h-4 w-4" />
                             Read Offline
-                        </Link>
+                        </a>
                     </Button>
                     <Button asChild variant="outline" className="w-full sm:w-auto">
                          <Link href={`/books/${book.id}`}>
