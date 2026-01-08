@@ -7,6 +7,10 @@ import {
   LogIn,
   UserPlus,
   PanelLeft,
+  LayoutGrid,
+  Download,
+  Settings,
+  Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -24,57 +28,61 @@ import {
 } from "@/components/ui/sheet";
 
 const navLinks = [
-  { href: "/", label: "Home" },
-  { href: "/admin", label: "Admin Panel" },
-  { href: "/contact", label: "Contact" },
+  { href: "/", label: "Browse", icon: Search },
+  { href: "/categories", label: "Categories", icon: LayoutGrid },
+  { href: "/downloads", label: "My Downloads", icon: Download },
+  { href: "/admin", label: "Admin Panel", icon: Settings },
 ];
 
 export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-transparent backdrop-blur-sm">
       <div className="container flex h-16 items-center">
-        <div className="mr-4 hidden md:flex">
+        <div className="mr-6 hidden md:flex">
           <Link href="/" className="flex items-center space-x-2">
             <BookOpen className="h-6 w-6 text-primary" />
-            <span className="hidden font-bold sm:inline-block font-headline">
-              OpenShelf
+            <span className="hidden font-bold sm:inline-block font-headline text-white">
+              E-Library
             </span>
           </Link>
         </div>
 
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center space-x-1 text-sm font-medium">
           {navLinks.map(link => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className="transition-colors hover:text-foreground/80 text-foreground/60"
-            >
-              {link.label}
-            </Link>
+            <Button key={link.href} variant="ghost" asChild className="text-gray-300 hover:bg-white/10 hover:text-white">
+              <Link
+                href={link.href}
+              >
+                <link.icon className="mr-2 h-4 w-4" />
+                {link.label}
+              </Link>
+            </Button>
           ))}
         </nav>
         
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="md:hidden">
+            <Button variant="ghost" size="icon" className="md:hidden text-white">
               <PanelLeft className="h-6 w-6" />
               <span className="sr-only">Toggle Menu</span>
             </Button>
           </SheetTrigger>
-          <SheetContent side="left">
+          <SheetContent side="left" className="bg-background border-r-white/10">
              <Link href="/" className="flex items-center space-x-2 mb-6">
                 <BookOpen className="h-6 w-6 text-primary" />
-                <span className="font-bold font-headline">OpenShelf</span>
+                <span className="font-bold font-headline text-white">E-Library</span>
               </Link>
-              <div className="flex flex-col space-y-3">
+              <div className="flex flex-col space-y-2">
               {navLinks.map(link => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  className="transition-colors hover:text-foreground text-foreground/80 text-lg"
-                >
-                  {link.label}
-                </Link>
+                 <Button key={link.href} variant="ghost" asChild className="text-gray-300 hover:bg-white/10 hover:text-white justify-start">
+                    <Link
+                      href={link.href}
+                      className="text-lg"
+                    >
+                       <link.icon className="mr-2 h-4 w-4" />
+                      {link.label}
+                    </Link>
+                 </Button>
               ))}
               </div>
           </SheetContent>
@@ -83,14 +91,14 @@ export function SiteHeader() {
         <div className="flex flex-1 items-center justify-end space-x-4">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon">
+              <Button variant="ghost" size="icon" className="text-white hover:bg-white/10 hover:text-white">
                 <User className="h-5 w-5" />
                 <span className="sr-only">User Menu</span>
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
+            <DropdownMenuContent align="end" className="bg-background border-white/10 text-white">
               <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
+              <DropdownMenuSeparator className="bg-white/10"/>
               <DropdownMenuItem asChild>
                 <Link href="/login">
                   <LogIn className="mr-2 h-4 w-4" />
