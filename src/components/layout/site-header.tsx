@@ -12,6 +12,7 @@ import {
   Download,
   Settings,
   Search,
+  MessageSquare,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
@@ -31,10 +32,11 @@ import { useAuth, useUser } from "@/firebase";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const navLinks = [
-  { href: "/", label: "Browse", icon: Search },
-  { href: "/categories", label: "Categories", icon: LayoutGrid },
-  { href: "/downloads", label: "My Downloads", icon: Download },
-  { href: "/admin", label: "Admin Panel", icon: Settings },
+  { href: "/", label: "Browse", icon: Search, admin: false },
+  { href: "/categories", label: "Categories", icon: LayoutGrid, admin: false },
+  { href: "/downloads", label: "My Downloads", icon: Download, admin: false },
+  { href: "/contact", label: "Contact", icon: MessageSquare, admin: false},
+  { href: "/admin", label: "Admin Panel", icon: Settings, admin: true },
 ];
 
 function UserMenu() {
@@ -97,6 +99,13 @@ function UserMenu() {
 }
 
 export function SiteHeader() {
+  const { user } = useUser();
+  // A simple way to simulate an admin user for styling.
+  // In a real app, this would be based on custom claims or a database role.
+  const isAdmin = user && user.email === 'admin@example.com';
+
+  const filteredNavLinks = navLinks.filter(link => !link.admin || isAdmin);
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-background">
       <div className="container flex h-16 items-center">
@@ -110,7 +119,7 @@ export function SiteHeader() {
         </div>
 
         <nav className="hidden md:flex items-center space-x-1 text-sm font-medium">
-          {navLinks.map(link => (
+          {filteredNavLinks.map(link => (
             <Button key={link.href} variant="ghost" asChild className="text-muted-foreground hover:bg-accent hover:text-accent-foreground">
               <Link
                 href={link.href}
@@ -135,7 +144,7 @@ export function SiteHeader() {
                 <span className="font-bold font-headline">E-Library</span>
               </Link>
               <div className="flex flex-col space-y-2">
-              {navLinks.map(link => (
+              {filteredNavLinks.map(link => (
                  <Button key={link.href} variant="ghost" asChild className="text-muted-foreground hover:bg-accent hover:text-accent-foreground justify-start">
                     <Link
                       href={link.href}
