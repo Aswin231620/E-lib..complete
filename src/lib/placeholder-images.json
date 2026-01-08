@@ -1,3 +1,52 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "book-cover-1",
+      "description": "Placeholder cover for a science fiction book.",
+      "imageUrl": "https://images.unsplash.com/photo-1687679043812-dd628c9c3235?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxhYnN0cmFjdCUyMGNvdmVyfGVufDB8fHx8MTc2NzgyNDA0OXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "abstract cover"
+    },
+    {
+      "id": "book-cover-2",
+      "description": "Placeholder cover for a history book.",
+      "imageUrl": "https://images.unsplash.com/photo-1473163928189-364b2c4e1135?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx2aW50YWdlJTIwbWFwfGVufDB8fHx8MTc2NzkxNDEwN3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "vintage map"
+    },
+    {
+      "id": "book-cover-3",
+      "description": "Placeholder cover for a computer science textbook.",
+      "imageUrl": "https://images.unsplash.com/photo-1562408590-e32931084e23?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxjaXJjdWl0JTIwYm9hcmR8ZW58MHx8fHwxNzY3ODI4MDM4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "circuit board"
+    },
+    {
+      "id": "book-cover-4",
+      "description": "Placeholder cover for a fantasy novel.",
+      "imageUrl": "https://images.unsplash.com/photo-1544187764-0bf25982cf48?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxteXN0aWNhbCUyMGZvcmVzdHxlbnwwfHx8fDE3Njc4ODM5ODR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "mystical forest"
+    },
+    {
+      "id": "book-cover-5",
+      "description": "Placeholder cover for a philosophy journal.",
+      "imageUrl": "https://images.unsplash.com/photo-1602522393009-55130dbbfe65?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxncmVlayUyMHN0YXR1ZXxlbnwwfHx8fDE3Njc5MTQxMDd8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "greek statue"
+    },
+    {
+      "id": "book-cover-6",
+      "description": "Placeholder cover for a literature classic.",
+      "imageUrl": "https://images.unsplash.com/photo-1613324766451-2d03b2ea8190?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvbGQlMjBib29rfGVufDB8fHx8MTc2Nzg4ODAzMXww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "old book"
+    },
+    {
+      "id": "book-cover-7",
+      "description": "Placeholder cover for a book on artificial intelligence.",
+      "imageUrl": "https://images.unsplash.com/photo-1662558274454-4b1fc87719d6?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxyb2JvdGljJTIwYnJhaW58ZW58MHx8fHwxNzY3OTE0MTA3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "robotic brain"
+    },
+    {
+      "id": "book-cover-8",
+      "description": "Placeholder cover for a biography.",
+      "imageUrl": "https://images.unsplash.com/photo-1525599428495-0441bd5c67de?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwb3J0cmFpdCUyMHBlcnNvbnxlbnwwfHx8fDE3Njc4NTIxMTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "portrait person"
+    }
+  ]
 }
